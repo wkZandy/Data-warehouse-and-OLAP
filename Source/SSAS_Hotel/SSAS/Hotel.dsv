@@ -1,0 +1,340 @@
+﻿<DataSourceView xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="d30ee277-8d15-4b0d-afa2-2cf34a68c00c" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>Hotel</ID>
+  <Name>Hotel</Name>
+  <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+  <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+  <Annotations>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowFriendlyNames</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:CurrentLayout</Name>
+      <Value>_ALL_TABLES_</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:SchemaRestriction</Name>
+      <Value></Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:RetrieveRelationships</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:Layouts</Name>
+      <Value>
+        <Layouts xmlns="">
+          <Diagram>
+            <Name>_ALL_TABLES_</Name>
+            <DiagramLayout />
+            <ShowRelationshipNames>False</ShowRelationshipNames>
+            <UseDiagramDefaultLayout>True</UseDiagramDefaultLayout>
+            <DiagramViewPortLeft>0</DiagramViewPortLeft>
+            <DiagramViewPortTop>0</DiagramViewPortTop>
+            <DiagramBoundingLeft>0</DiagramBoundingLeft>
+            <DiagramBoundingTop>0</DiagramBoundingTop>
+            <DiagramZoom>100</DiagramZoom>
+          </Diagram>
+        </Layouts>
+      </Value>
+    </Annotation>
+  </Annotations>
+  <DataSourceID>Hotel</DataSourceID>
+  <Schema>
+    <xs:schema id="Hotel" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+      <xs:element name="Hotel" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:design-time-name="b6d8d367-530e-4347-bbfb-bed06fe5f29c">
+        <xs:complexType>
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="dbo_dim_country" msprop:DbTableName="dim_country" msprop:FriendlyName="dim_country" msprop:TableType="Table" msprop:DbSchemaName="dbo" msprop:design-time-name="e3d6a1d8-2472-4555-b664-13be16cc6407">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="PostalCode" msprop:FriendlyName="PostalCode" msprop:DbColumnName="PostalCode" msprop:design-time-name="452220a0-a399-4064-ac77-79353c22e521" type="xs:decimal" />
+                  <xs:element name="City" msprop:FriendlyName="City" msprop:DbColumnName="City" msprop:design-time-name="48647fee-7a2f-4229-96a9-23ed7cd0e120">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Country" msprop:FriendlyName="Country" msprop:DbColumnName="Country" msprop:design-time-name="6fb664ef-7656-45a5-b79b-f481f80a9f1c" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="dbo_dim_date" msprop:DbTableName="dim_date" msprop:FriendlyName="dim_date" msprop:TableType="Table" msprop:DbSchemaName="dbo" msprop:design-time-name="501f10fb-8c23-4231-80e4-470f0af602bd">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="datee" msprop:FriendlyName="datee" msprop:DbColumnName="datee" msprop:design-time-name="55daa697-0097-4a38-b3b5-5e27a94ce7a5" type="xs:dateTime" />
+                  <xs:element name="thu" msdata:ReadOnly="true" msprop:FriendlyName="thu" msprop:DbColumnName="thu" msprop:design-time-name="37621bf5-ad41-4346-aa06-081ba2dc0bbf" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="30" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="ngay" msdata:ReadOnly="true" msprop:FriendlyName="ngay" msprop:DbColumnName="ngay" msprop:design-time-name="fe2aa64a-dd17-4a80-9d79-445da22adc85" type="xs:int" minOccurs="0" />
+                  <xs:element name="thang" msdata:ReadOnly="true" msprop:FriendlyName="thang" msprop:DbColumnName="thang" msprop:design-time-name="c2ff52cb-6f00-4318-be48-17da76f3e997" type="xs:int" minOccurs="0" />
+                  <xs:element name="nam" msdata:ReadOnly="true" msprop:FriendlyName="nam" msprop:DbColumnName="nam" msprop:design-time-name="45781a73-1c0a-4216-9b7f-98e6509531b3" type="xs:int" minOccurs="0" />
+                  <xs:element name="quy" msdata:ReadOnly="true" msprop:FriendlyName="quy" msprop:DbColumnName="quy" msprop:design-time-name="60782bd0-bf09-439c-b82a-dc64427456b7" type="xs:int" minOccurs="0" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="dbo_dim_guest" msprop:DbTableName="dim_guest" msprop:FriendlyName="dim_guest" msprop:TableType="Table" msprop:DbSchemaName="dbo" msprop:design-time-name="d50480ba-8582-4b12-bba7-808feb8cf4b5">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="GuestID" msprop:FriendlyName="GuestID" msprop:DbColumnName="GuestID" msprop:design-time-name="9e2ce33f-5678-45e4-ae64-8d54c86497ad" type="xs:decimal" />
+                  <xs:element name="FirstName" msprop:FriendlyName="FirstName" msprop:DbColumnName="FirstName" msprop:design-time-name="2012a383-28d0-4ba0-a53b-83d7c7e04afd" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="LastName" msprop:FriendlyName="LastName" msprop:DbColumnName="LastName" msprop:design-time-name="08814810-a52a-4718-9049-ee0833f7525c" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Gender" msprop:FriendlyName="Gender" msprop:DbColumnName="Gender" msprop:design-time-name="e4b3ef7a-637c-46b7-b061-67d32858b615" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Email" msprop:FriendlyName="Email" msprop:DbColumnName="Email" msprop:design-time-name="af05cb7d-2b99-42bc-81d0-5aa16a815a69" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Phone" msprop:FriendlyName="Phone" msprop:DbColumnName="Phone" msprop:design-time-name="2458b8d6-1977-4700-a376-9f4622926933" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Nationality" msprop:FriendlyName="Nationality" msprop:DbColumnName="Nationality" msprop:design-time-name="f5f59a66-1a3b-441c-a967-14c39df59dce" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Birthdate" msprop:FriendlyName="Birthdate" msprop:DbColumnName="Birthdate" msprop:design-time-name="b6802a06-2016-486a-a5b4-a0a50a896b99" type="xs:dateTime" minOccurs="0" />
+                  <xs:element name="Address" msprop:FriendlyName="Address" msprop:DbColumnName="Address" msprop:design-time-name="ff3324ff-95b9-43ce-9b4d-229b29e4759b" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="200" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="City" msprop:FriendlyName="City" msprop:DbColumnName="City" msprop:design-time-name="e3ee42f9-1685-4f87-a063-9f71d461adbd" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="PostalCode" msprop:FriendlyName="PostalCode" msprop:DbColumnName="PostalCode" msprop:design-time-name="231d1cc0-9fc9-4f21-98e3-c3280b356d70" type="xs:decimal" minOccurs="0" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="dbo_dim_payment" msprop:DbTableName="dim_payment" msprop:FriendlyName="dim_payment" msprop:TableType="Table" msprop:DbSchemaName="dbo" msprop:design-time-name="58320705-1485-43ce-88ac-51f8b31d86e6">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="PaymentStatus" msprop:FriendlyName="PaymentStatus" msprop:DbColumnName="PaymentStatus" msprop:design-time-name="986a76cd-d0de-4292-8d2c-f0defd187615">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="dbo_dim_reservation" msprop:DbTableName="dim_reservation" msprop:FriendlyName="dim_reservation" msprop:TableType="Table" msprop:DbSchemaName="dbo" msprop:design-time-name="57629f3f-5900-49fa-a1a2-efc2fe9e5528">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="ReservationSource" msprop:FriendlyName="ReservationSource" msprop:DbColumnName="ReservationSource" msprop:design-time-name="d284c555-127f-4309-888b-aada457f8da7">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="dbo_dim_room" msprop:DbTableName="dim_room" msprop:FriendlyName="dim_room" msprop:TableType="Table" msprop:DbSchemaName="dbo" msprop:design-time-name="9fc6d111-5e9b-45da-b600-114f42c63068">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="RoomNumber" msprop:FriendlyName="RoomNumber" msprop:DbColumnName="RoomNumber" msprop:design-time-name="5349ac45-9bc8-4d3d-a1ff-8f7685fdf786" type="xs:decimal" />
+                  <xs:element name="FloorNumber" msprop:FriendlyName="FloorNumber" msprop:DbColumnName="FloorNumber" msprop:design-time-name="31eecd01-01f3-4105-a171-cd969d369152" type="xs:decimal" minOccurs="0" />
+                  <xs:element name="RoomType" msprop:FriendlyName="RoomType" msprop:DbColumnName="RoomType" msprop:design-time-name="335fd529-5f14-43d0-94f9-360f536d278d" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="dbo_fact" msprop:DbTableName="fact" msprop:FriendlyName="fact" msprop:TableType="Table" msprop:DbSchemaName="dbo" msprop:design-time-name="0979656d-eac0-4e29-8300-0c6dd1f2de03">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Reservation_x0020_ID" msprop:FriendlyName="Reservation ID" msprop:DbColumnName="Reservation ID" msprop:design-time-name="b313e67d-7d4b-4ecb-b8aa-0dea0b7797a4" type="xs:decimal" />
+                  <xs:element name="GuestID" msprop:FriendlyName="GuestID" msprop:DbColumnName="GuestID" msprop:design-time-name="b2b88337-ab9b-4dae-9e7d-de2e8e9e03c4" type="xs:decimal" minOccurs="0" />
+                  <xs:element name="CheckinDate" msprop:FriendlyName="CheckinDate" msprop:DbColumnName="CheckinDate" msprop:design-time-name="d5250da6-affb-48bb-8167-7a698434b90e" type="xs:dateTime" minOccurs="0" />
+                  <xs:element name="CheckoutDate" msprop:FriendlyName="CheckoutDate" msprop:DbColumnName="CheckoutDate" msprop:design-time-name="49c4ca47-3616-4f52-b8fb-654560320939" type="xs:dateTime" minOccurs="0" />
+                  <xs:element name="RoomNumber" msprop:FriendlyName="RoomNumber" msprop:DbColumnName="RoomNumber" msprop:design-time-name="271d7549-3268-402b-85db-49322d80126a" type="xs:decimal" minOccurs="0" />
+                  <xs:element name="Adults" msprop:FriendlyName="Adults" msprop:DbColumnName="Adults" msprop:design-time-name="0578388a-7dc8-4a70-b478-4b24d84a83d4" type="xs:decimal" minOccurs="0" />
+                  <xs:element name="Children" msprop:FriendlyName="Children" msprop:DbColumnName="Children" msprop:design-time-name="2bd8fb20-045f-4aee-b77f-9ce8c4d5bac1" type="xs:decimal" minOccurs="0" />
+                  <xs:element name="TotalNights" msprop:FriendlyName="TotalNights" msprop:DbColumnName="TotalNights" msprop:design-time-name="40733f8c-9c56-4cd8-9d99-7c51ac7ecb0a" type="xs:decimal" minOccurs="0" />
+                  <xs:element name="TotalAmount" msprop:FriendlyName="TotalAmount" msprop:DbColumnName="TotalAmount" msprop:design-time-name="24d2ecf5-ed9c-4271-b14f-878673ca6b1e" type="xs:decimal" minOccurs="0" />
+                  <xs:element name="PaymentStatus" msprop:FriendlyName="PaymentStatus" msprop:DbColumnName="PaymentStatus" msprop:design-time-name="0a6592c7-d7ab-49ea-97ca-be643d19796b" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="SpecialRequests" msprop:FriendlyName="SpecialRequests" msprop:DbColumnName="SpecialRequests" msprop:design-time-name="0ce5a837-1a75-4d09-bab6-e35684bd2f9f" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="200" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="ReservationSource" msprop:FriendlyName="ReservationSource" msprop:DbColumnName="ReservationSource" msprop:design-time-name="2939f791-169c-4951-8c71-c2ea4e042ea7" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="BookingDate" msprop:FriendlyName="BookingDate" msprop:DbColumnName="BookingDate" msprop:design-time-name="1c5367cb-5baf-453a-92c4-20b80612b239" type="xs:dateTime" minOccurs="0" />
+                  <xs:element name="CheckinTime" msprop:FriendlyName="CheckinTime" msprop:DbColumnName="CheckinTime" msprop:design-time-name="41098fd8-ae50-400f-85bb-4ce3fcbbd1b1" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="CheckoutTime" msprop:FriendlyName="CheckoutTime" msprop:DbColumnName="CheckoutTime" msprop:design-time-name="873b4030-c367-468f-9819-d00135e22e84" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Breakfast" msprop:FriendlyName="Breakfast" msprop:DbColumnName="Breakfast" msprop:design-time-name="c9fdca73-a840-4d21-97f1-f441b25a055f" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Spa" msprop:FriendlyName="Spa" msprop:DbColumnName="Spa" msprop:design-time-name="3f903c5b-7bde-4878-bab4-085644b8ef60" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="Airport" msprop:FriendlyName="Airport" msprop:DbColumnName="Airport" msprop:design-time-name="9ba39d0d-b2fd-42da-a02a-c661bccce2fa" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="RoomTypeRate" msprop:FriendlyName="RoomTypeRate" msprop:DbColumnName="RoomTypeRate" msprop:design-time-name="7dba35f4-0408-427b-89e6-3f57023668aa" minOccurs="0">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:choice>
+        </xs:complexType>
+        <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+          <xs:selector xpath=".//dbo_dim_country" />
+          <xs:field xpath="PostalCode" />
+          <xs:field xpath="City" />
+        </xs:unique>
+        <xs:unique name="dbo_dim_date_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+          <xs:selector xpath=".//dbo_dim_date" />
+          <xs:field xpath="datee" />
+        </xs:unique>
+        <xs:unique name="dbo_dim_guest_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+          <xs:selector xpath=".//dbo_dim_guest" />
+          <xs:field xpath="GuestID" />
+        </xs:unique>
+        <xs:unique name="dbo_dim_payment_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+          <xs:selector xpath=".//dbo_dim_payment" />
+          <xs:field xpath="PaymentStatus" />
+        </xs:unique>
+        <xs:unique name="dbo_dim_reservation_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+          <xs:selector xpath=".//dbo_dim_reservation" />
+          <xs:field xpath="ReservationSource" />
+        </xs:unique>
+        <xs:unique name="dbo_dim_room_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+          <xs:selector xpath=".//dbo_dim_room" />
+          <xs:field xpath="RoomNumber" />
+        </xs:unique>
+        <xs:unique name="dbo_fact_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+          <xs:selector xpath=".//dbo_fact" />
+          <xs:field xpath="Reservation_x0020_ID" />
+        </xs:unique>
+        <xs:keyref name="FK_BookingDate_Fact" refer="dbo_dim_date_Constraint1">
+          <xs:selector xpath=".//dbo_fact" />
+          <xs:field xpath="BookingDate" />
+        </xs:keyref>
+        <xs:keyref name="FK_Reservation_Fact" refer="dbo_dim_reservation_Constraint1">
+          <xs:selector xpath=".//dbo_fact" />
+          <xs:field xpath="ReservationSource" />
+        </xs:keyref>
+        <xs:keyref name="FK_CheckinDate_Fact" refer="dbo_dim_date_Constraint1">
+          <xs:selector xpath=".//dbo_fact" />
+          <xs:field xpath="CheckinDate" />
+        </xs:keyref>
+        <xs:keyref name="FK_Payment_Fact" refer="dbo_dim_payment_Constraint1">
+          <xs:selector xpath=".//dbo_fact" />
+          <xs:field xpath="PaymentStatus" />
+        </xs:keyref>
+        <xs:keyref name="FK_CheckoutDate_Fact" refer="dbo_dim_date_Constraint1">
+          <xs:selector xpath=".//dbo_fact" />
+          <xs:field xpath="CheckoutDate" />
+        </xs:keyref>
+        <xs:keyref name="FK_Room_Fact" refer="dbo_dim_room_Constraint1">
+          <xs:selector xpath=".//dbo_fact" />
+          <xs:field xpath="RoomNumber" />
+        </xs:keyref>
+        <xs:keyref name="FK_Guest_Fact" refer="dbo_dim_guest_Constraint1">
+          <xs:selector xpath=".//dbo_fact" />
+          <xs:field xpath="GuestID" />
+        </xs:keyref>
+        <xs:keyref name="FK_Country_Guest" refer="Constraint1">
+          <xs:selector xpath=".//dbo_dim_guest" />
+          <xs:field xpath="PostalCode" />
+          <xs:field xpath="City" />
+        </xs:keyref>
+      </xs:element>
+    </xs:schema>
+    <Hotel xmlns="" />
+  </Schema>
+</DataSourceView>

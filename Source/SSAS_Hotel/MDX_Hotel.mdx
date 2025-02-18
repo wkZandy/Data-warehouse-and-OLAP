@@ -1,0 +1,293 @@
+﻿// 1. Doanh thu từng loại phòng qua các năm
+ SELECT NON EMPTY [Measures].[Total Amount] ON COLUMNS,
+ NON EMPTY CROSSJOIN ([Dim Room].[Room Type].children, [Checkin Date].[Nam].children) ON ROWS
+ FROM [Hotel];
+
+
+// 2. Doanh thu từng nguồn đặt phòng của từng quý qua các năm 
+SELECT NON EMPTY [Measures].[Total Amount] ON COLUMNS,
+NON EMPTY CROSSJOIN ([Dim Reservation].[Reservation Source].children, [Checkin Date].[Nam].children, [Checkin Date].[Quy].children) ON ROWS
+FROM [Hotel];
+
+
+// 3. Danh sách đặt phòng cho loại phòng 'Standard'
+ SELECT NON EMPTY { [Measures].[Adults], [Measures].[Children], [Measures].[Total Nights] } ON COLUMNS, 
+ NON EMPTY { ([Fact].[Reservation ID].[Reservation ID].ALLMEMBERS * [Dim Guest].[Guest ID].[Guest ID].ALLMEMBERS ) } ON ROWS 
+ FROM [Hotel]
+ WHERE  [Dim Room].[Room Type].&[Standard];
+
+
+// 4. Tổng doanh thu theo loại phòng và tháng của năm 2023
+SELECT 
+   NON EMPTY ([Dim Room].[Room Type].children) ON ROWS ,
+   [Checkin Date].[Thang].children ON COLUMNS
+FROM 
+  [Hotel] 
+WHERE 
+  ([Measures].[Total Amount], [Checkin Date].[Nam].[Nam].&[2023]);
+
+
+// 5. Tổng số lượng khách theo quốc gia và loại phòng nam 2023
+WITH 
+  MEMBER [Measures].[SumAdultsChildren] AS 
+    [Measures].[Adults] + [Measures].[Children]
+SELECT 
+   NON EMPTY ([Dim Room].[Room Type].children) ON COLUMNS ,
+   NON EMPTY ([Dim Guest].[Country].children) ON ROWS
+FROM 
+  [Hotel] 
+WHERE 
+  ([Measures].[SumAdultsChildren], [Checkin Date].[Nam].[Nam].&[2023]
+  );
+
+
+// 6. Số lượng đặt phòng theo từng tháng và từng loại phòng
+SELECT 
+    NON EMPTY [Measures].[Fact Count] ON COLUMNS,
+    NON EMPTY CROSSJOIN(
+        [Checkin Date].[Thang].[Thang].Members,
+        [Dim Room].[Room Type].[Room Type].Members
+    ) ON ROWS
+FROM 
+    [Hotel]
+WHERE ([Checkin Date].[Nam].&[2023]);
+
+
+// 7. Thông tin khách từ Thụy Sĩ (Switzerland) , chỉ hiển thị các cột có giá trị tổng số tiền chi tiêu lớn hơn 1000
+ SELECT 
+    { [Measures].[Total Amount] } ON COLUMNS,
+    FILTER(
+        NONEMPTY(
+            [Dim Guest].[Guest ID].[Guest ID].MEMBERS * [Dim Guest].[First Name].[First Name].MEMBERS * [Dim Guest].[Last Name].[Last Name].MEMBERS,
+            [Measures].[Total Amount]
+        ),
+        [Measures].[Total Amount] > 1000
+    ) ON ROWS
+FROM [Hotel]
+WHERE ([Dim Guest].[Country].&[Switzerland]);
+
+
+// 8. Số lượng khách nữ từ Thụy Sĩ (Switzerland) với tổng số tiền chi tiêu lớn hơn 1000
+SELECT 
+    { [Measures].[Total Amount] } ON COLUMNS,
+    FILTER(
+        NONEMPTY(
+            [Dim Guest].[Guest ID].[Guest ID].MEMBERS * [Dim Guest].[First Name].[First Name].MEMBERS * [Dim Guest].[Last Name].[Last Name].MEMBERS,
+            [Measures].[Total Amount]
+        ),
+        [Measures].[Total Amount] > 1000
+    ) ON ROWS
+FROM [Hotel]
+WHERE ([Dim Guest].[Country].&[Switzerland], [Dim Guest].[Gender].&[Female]);
+
+
+
+// 9. Số lượng đặt phòng qua các nguồn đặt phòng qua các năm
+SELECT NON EMPTY [Measures].[Fact Count] ON COLUMNS,
+ NON EMPTY CROSSJOIN ([Dim Reservation].[Reservation Source].children, [Checkin Date].[Nam].children) ON ROWS
+ FROM [Hotel];
+
+// 10. Thông tin khách hàng nam ở phòng loại ‘Deluxe’, chỉ hiển thị khách hàng có tổng số tiền chi tiêu lớn hơn 740
+SELECT 
+    { [Measures].[Total Amount] } ON COLUMNS,
+    FILTER(
+        NONEMPTY(
+            [Dim Guest].[Guest ID].[Guest ID].MEMBERS * [Dim Guest].[First Name].[First Name].MEMBERS * [Dim Guest].[Last Name].[Last Name].MEMBERS,
+            [Measures].[Total Amount]
+        ),
+        [Measures].[Total Amount] > 740
+    ) ON ROWS
+FROM [Hotel]
+WHERE
+    ([Dim Room].[Room Type].&[Deluxe], [Dim Guest].[Gender].&[Male]);
+
+
+// 11. Tìm các khách hàng có tổng số đêm ở trên ... trong quý 4/2023 (having)
+SELECT NON EMPTY { [Measures].[Total Nights] } ON COLUMNS, 
+ NON EMPTY { ([Dim Guest].[Guest ID].[Guest ID].ALLMEMBERS * [Dim Guest].[First Name].[First Name].ALLMEMBERS * [Dim Guest].[Last Name].[Last Name].ALLMEMBERS ) } ON ROWS 
+FROM ( SELECT ( { [Checkin Date].[date].[Nam].&[2023], [Checkin Date].[date].[Quy].&[4]&[2023] } ) ON COLUMNS 
+FROM ( SELECT ( [SoDemLonHon4] ) ON COLUMNS FROM [Hotel])) 
+WHERE ( [Checkin Date].[date].CurrentMember );
+
+
+// 12. Mỗi quý của năm 2023 cho biết tháng nào có tổng doanh thu cao nhất 
+SELECT [Measures].[Total Amount] ON COLUMNS,
+NON EMPTY GENERATE(
+ [Checkin Date].[Quy].children,
+ TOPCOUNT([Checkin Date].[Quy].CURRENTMEMBER * [Checkin Date].[Thang].children,1,[Measures].[Total Amount]) 
+) ON ROWS
+FROM [Hotel]
+WHERE [Checkin Date].[Nam].&[2023];
+
+
+// 13. Doanh thu của loại phòng 'Deluxe' qua từng năm 
+SELECT NON EMPTY [Checkin Date].[Nam].children ON ROWS, [Measures].[Total Amount] ON COLUMNS
+FROM [Hotel]
+WHERE [Dim Room].[Room Type].&[Deluxe];
+
+
+// 14. Phần trăm số lượng đặt phòng có sử dụng bữa sáng
+WITH 
+MEMBER [Measures].[TotalBreakfast] AS
+    ([Fact].[Breakfast].[Yes], [Measures].[Fact Count])
+
+MEMBER [Measures].[PercentBreakfast] AS
+    ([Measures].[TotalBreakfast] / [Measures].[Fact Count]) * 100,
+	FORMAT_STRING = "0.00"
+
+SELECT 
+    {[Measures].[TotalBreakfast], [Measures].[PercentBreakfast]} ON COLUMNS
+FROM 
+    [Hotel];
+
+
+// 15. Phần trăm doanh thu từ mỗi nguồn đặt phòng trong năm 2023
+WITH 
+MEMBER [Measures].[TotalRevenueByReservationSource] AS //tính doanh thu mỗi source
+    ([Dim Reservation].[Reservation Source].CurrentMember, [Measures].[Total Amount])
+
+MEMBER [Measures].[TotalRevenueAllReservationSources] AS //tính tổng doanh thu các source
+    SUM(
+        [Dim Reservation].[Reservation Source].[Reservation Source].MEMBERS, 
+        [Measures].[Total Amount]
+    )
+
+MEMBER [Measures].[PercentRevenueByReservationSource] AS
+    ([Measures].[TotalRevenueByReservationSource] / [Measures].[TotalRevenueAllReservationSources]) * 100, 
+    FORMAT_STRING = "0.00"
+
+SELECT 
+    {[Measures].[TotalRevenueByReservationSource], [Measures].[PercentRevenueByReservationSource]} ON COLUMNS,
+    NON EMPTY [Dim Reservation].[Reservation Source].children ON ROWS
+FROM 
+    [Hotel]
+WHERE [Checkin Date].[Nam].&[2023];
+
+
+// 16. Top 3 doanh thu theo quốc gia từ các đơn đặt phòng có sử dụng dịch vụ đưa đón sân bay 
+WITH 
+MEMBER [Measures].[RevenueByAirport] AS
+	([Dim Guest].[Country].CurrentMember, [Fact].[Airport].[Yes], [Measures].[Total Amount])
+
+SELECT 
+    {[Measures].[RevenueByAirport]} ON COLUMNS,
+	TOPCOUNT(
+        NONEMPTY([Dim Guest].[Country].Children, [Measures].[RevenueByAirport]),
+        3,
+        [Measures].[RevenueByAirport]
+    ) ON ROWS
+FROM 
+    [Hotel]
+WHERE ([Checkin Date].[Nam].&[2023] );
+
+
+// 17. Số lượng đặt phòng của từng loại phòng theo mỗi nguồn đặt phòng
+SELECT 
+    NON EMPTY {[Measures].[Fact Count]} ON COLUMNS,
+    NON EMPTY CROSSJOIN(
+        [Dim Room].[Room Type].[Room Type].Members,
+        [Dim Reservation].[Reservation Source].[Reservation Source].Members
+    ) ON ROWS
+FROM 
+    [Hotel];
+
+
+// 18. Tổng số lượng đặt phòng theo từng loại phòng và tầng
+SELECT 
+    {[Measures].[Fact Count]} ON COLUMNS,
+    NON EMPTY CROSSJOIN(
+        [Dim Room].[Room Type].[Room Type].Members,
+        [Dim Room].[Floor Number].[Floor Number].Members
+    ) ON ROWS
+FROM 
+    [Hotel];
+
+
+// 19. Trung bình số đêm ở theo từng tháng trong năm 2023
+WITH 
+MEMBER [Measures].[AverageNightsStay] AS
+    IIF(
+        [Measures].[Fact Count] = 0, 
+        NULL, 
+        [Measures].[Total Nights] / [Measures].[Fact Count]
+    ),
+    FORMAT_STRING = "0.00"
+
+SELECT 
+    {[Measures].[AverageNightsStay]} ON COLUMNS,
+    NON EMPTY [Checkin Date].[Thang].[Thang].Members ON ROWS
+FROM 
+    [Hotel]
+WHERE 
+    ([Checkin Date].[Nam].&[2023]);
+
+
+// 20. Tổng doanh thu theo từng loại phòng
+SELECT 
+    {[Measures].[Total Amount]} ON COLUMNS,
+    NON EMPTY [Dim Room].[Room Type].children ON ROWS
+FROM 
+    [Hotel];
+
+// 21. Liệt kê top 2 loại phòng được thuê nhiều nhất theo nguồn đặt phòng
+SELECT [Measures].[Fact Count] ON COLUMNS,
+NON EMPTY Generate(
+        [Dim Reservation].[Reservation Source].children,
+        TopCount(
+           [Dim Reservation].[Reservation Source].currentmember * [Dim Room].[Room Type].children,
+		   2,
+		   [Measures].[Fact Count]
+        )
+    ) ON ROWS
+FROM [Hotel];
+
+// 22. Liệt kê top 2 loại phòng có doanh thu nhiều nhất trong cả hai năm 2022 và năm 2023
+// Cách 1
+SELECT {
+	([Measures].[Total Amount],[Checkin Date].[Nam].&[2022]),
+	([Measures].[Total Amount],[Checkin Date].[Nam].&[2023])
+	} ON COLUMNS,
+INTERSECT(
+	{TOPCOUNT([Dim Room].[Room Type].children,
+			2,
+			([Measures].[Total Amount],[Checkin Date].[Nam].&[2022])
+		)},
+	{TOPCOUNT([Dim Room].[Room Type].children,
+			2,
+			([Measures].[Total Amount],[Checkin Date].[Nam].&[2023])
+		)}
+	) ON ROWS
+FROM [Hotel];
+
+// Cách 2
+WITH 
+-- Tính tổng doanh thu cho năm 2022
+MEMBER [Measures].[Total Amount 2022] AS
+    ([Measures].[Total Amount], [Checkin Date].[Nam].&[2022])
+
+-- Tính tổng doanh thu cho năm 2023
+MEMBER [Measures].[Total Amount 2023] AS
+    ([Measures].[Total Amount], [Checkin Date].[Nam].&[2023])
+
+-- Tạo tập hợp các loại phòng có doanh thu cao nhất trong cả hai năm
+SET [Top Rooms 2022] AS
+    TopCount(
+        [Dim Room].[Room Type].children,
+        2,
+        [Measures].[Total Amount 2022]
+    )
+
+SET [Top Rooms 2023] AS
+    TopCount(
+        [Dim Room].[Room Type].children,
+        2,
+        [Measures].[Total Amount 2023]
+    )
+
+SET [Intersected Top Rooms] AS
+    Intersect([Top Rooms 2022], [Top Rooms 2023])
+
+SELECT
+    {[Measures].[Total Amount 2022], [Measures].[Total Amount 2023]} ON COLUMNS,
+    [Intersected Top Rooms] ON ROWS
+FROM [Hotel];
